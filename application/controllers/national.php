@@ -2191,7 +2191,7 @@ public function new_consumption(){
 		 	
 		 	$excel_data = array('doc_creator' => "HCMP", 'doc_title' => "$title Consumption (Packs) $time", 'file_name' => $title . ' Consumption');
 		 $row_data = array();			
-		 $column_data = array("County", "Sub-County", "Facility Name", "Facility Code", "Item Name", "Consumption (Packs)","Month");
+		 $column_data = array("County", "Sub-County", "Facility Name", "Facility Code", "Commodity Name", "Consumption (Packs)","Month");
 		 for ($i=1; $i < $count_commodities; $i++) { 
 		 	$item_name = "Item Name";
 		 	$consumption = "Consumption (Packs)";
