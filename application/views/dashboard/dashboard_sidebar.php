@@ -20,7 +20,7 @@
                 <ul class="nav side-menu">
                   <li class="active"><a><i class="fa fa-area-chart"></i> Programmatic <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu" style="display: block;">
-                    <?php foreach ($commodity_divisions as $divisions => $value): ?>
+                   <?php foreach ($commodity_divisions as $divisions => $value): ?>
                       <li><a href="<?php echo base_url().'dashboard/divisions/'.$value['id']; ?>"><?php echo $value['division_name']; ?></a>
                       </li>
                     <?php endforeach; ?>

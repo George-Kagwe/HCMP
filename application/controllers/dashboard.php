@@ -41,6 +41,7 @@ class Dashboard extends MY_Controller {
 		$data['facility_count'] = $facility_count;
 		$data['commodity_count'] = $commodity_count;
 		$data['content_view'] = 'dashboard/dashboard';
+		$data['reports_home'] = 'national/reports_home';
 		$data['county_data'] = $counties;
 		$data['county_count'] = count($counties_using_HCMP);
 		$data['district_data'] = $districts;

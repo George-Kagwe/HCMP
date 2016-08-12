@@ -28,6 +28,11 @@
      <script src="<?php echo base_url().'assets/scripts/pace.js'?>" type="text/javascript"></script>
      <script src="<?php echo base_url().'assets/scripts/offline.js'?>" type="text/javascript"></script>
      <script src="<?php echo base_url().'assets/scripts/select2.js'?>" type="text/javascript"></script>
+
+     <link href="<?php echo base_url().'assets/dashboard/css/reports.css'?>" type="text/css" rel="stylesheet"/>
+
+
+
     <title>HCMP | National</title>
 <script>
    paceOptions = {
@@ -51,11 +56,9 @@
         load(3100);
       });
     },4500);
-
     Pace.on('hide', function(){
    //   console.log('done');
     });
-
     var url="<?php echo base_url(); ?>";
     </script>
 <style>
@@ -65,12 +68,10 @@
     body {
 padding-top: 6.5%;
 }
-
 .modal-content,.form-control
 {
   border-radius: 0 !important;
 }
-
 legend{
 	font-size:16px;
 }
@@ -84,61 +85,14 @@ legend{
 		width: 54%;
 	}
 </style>
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+  
 </head>
   
 <body screen_capture_injected="true">
 	
-	<div class="container-fluid navbar-default navbar-fixed-top" role="navigation" style="background-color:white">
-        <div class="container-fluid">
-            <div class="navbar-header" id="st-trigger-effects">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand " href="<?php echo base_url().'national';?>" >HCMP</a>
-
-        </div>
-        <div class="navbar-header" >
-  
-            <a href="<?php echo base_url().'kenya';?>">   
-            <img style="display:inline-block;"  src="<?php echo base_url();?>assets/img/coat_of_arms_dash.png" class="img-responsive " alt="Responsive image" id="logo" ></a>
-            
-        </div>
-        
-        <div class="collapse navbar-collapse navbar-right">
-          <ul class="nav navbar-nav navbar-right">
-
-            <li class=""><a href="<?php echo base_url().'kenya';?>">Home</a></li>
-
-            <li class=""><a href="<?php echo base_url().'dashboard';?>">Home</a></li>
-
-            <li class="active"><a href="<?php echo base_url().'national/reports';?>">Reports</a></li>
-            <!-- <li class=""><a href="<?php echo base_url().'national/search';?>">Search</a></li> -->
-            <li class="dropdown" style="background: #144d6e; color: white;">
-     		<a href="#" class="dropdown-toggle" style="color:white" data-toggle="dropdown" role="button" aria-expanded="false">Log In <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-              	<li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo base_url().'home';?>"><span class="glyphicon glyphicon-user"></span>Essential Commodities</a></li>
-                <li role="presentation" class="divider"></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="http://41.89.6.223/HCMP/user"><span class="glyphicon glyphicon-user"></span>RTK</a></li>
-                
-              </ul>
-            </li>
-          </ul>
-          
-                                        
-        </div><!--/.nav-collapse -->
-
-      </div>
-    </div>
+	
     
-    <div class="container" style="max-width:80% " id="main_c">
+    <div class="container" style="max-width:50% " id="main_c">
     	
     	<div class="row-fluid" style="margin-top: 1%">
     		<fieldset>
@@ -331,7 +285,6 @@ legend{
 			  		<section class="col-md-8">
 						
 						<!--<section class="col-md-3">
-
 							<input type="radio" name="doctype" value="pdf" checked/> PDF
 						</section>-->
 						<section class="col-md-3">
@@ -505,7 +458,6 @@ legend{
 			$("#from,#to").attr("disabled", false);
 			document.getElementById("commodity_s").checked = true;
 			$(".myoptions").attr("disabled", true);
-
 			$(".ms-choice").addClass("disabled");
 			// document.getElementById("tracer_commodities").disabled = false;
 			// document.getElementById("specify_commodities").disabled = false;
@@ -522,7 +474,6 @@ legend{
 			
 		}
 });
-
 $("input:radio[name=commodity_s]").click(function() {
 	var val = $(this).val();
 	// alert(val);
@@ -531,18 +482,14 @@ $("input:radio[name=commodity_s]").click(function() {
 		$(".myoptions").attr("disabled", false);
 		// $("#commodity").attr("disabled", false);
 		$(".ms-choice").removeClass("disabled");
-
 		// $("#commodity").removeClass("disabled");
 	}else{
 		// $("#commodity").attr("disabled", 'disabled');
 		// $("#commodity").val("NULL");
 		$(".myoptions").attr("disabled", true);
-
 		$(".ms-choice").addClass("disabled");
 	}
 });
-
-
 //Generate the reports after user has selected the options
     $(".generate").click(function() {
       	var county_id=$('#county').val();
@@ -580,7 +527,6 @@ $("input:radio[name=commodity_s]").click(function() {
 					// });
 					// commodity_id = 'commodity_id='+mycommodity_id;
 					// commodity_id = mycommodity_id.toString();
-
 	        		link='national/consumption/'+county_id+'/'+district+'/'+facility+'/'+encodeURI(commodity_id)+'/excel/'+encodeURI(from)+ '/'+encodeURI(to);
 	        	}
 	        	
@@ -784,7 +730,6 @@ $("input:radio[name=commodity_s]").click(function() {
 	        }else if(type=='pdf'){ 
 		        link='national/potential/'+county_id+'/'+district+'/'+facility+'/pdf/'+interval;
 		        window.open(url+link,'_parent');
-
 	        }else if(type=='graph'){
 	        	$('#graph_Modal').modal('show');
         		ajax_return('national/potential/'+county_id+'/'+district+'/'+facility+'/graph/'+interval,"#graph_content");
@@ -847,7 +792,6 @@ $("input:radio[name=commodity_s]").click(function() {
         	}
         }
    });    
-
 //Generate the reports after user has selected the options
     $(".generate-annual").click(function() {
       	var county_id=$('#county').val();
@@ -1055,7 +999,6 @@ $("input:radio[name=commodity_s]").click(function() {
 	        }else if(type=='pdf'){ 
 		        link='national/potential/'+county_id+'/'+district+'/'+facility+'/pdf/'+interval;
 		        window.open(url+link,'_parent');
-
 	        }else if(type=='graph'){
 	        	$('#graph_Modal').modal('show');
         		ajax_return('national/potential/'+county_id+'/'+district+'/'+facility+'/graph/'+interval,"#graph_content");
@@ -1133,9 +1076,7 @@ $("input:radio[name=commodity_s]").click(function() {
     });
     } 
     
-
 });
-
      </script>
  <script src="<?php echo base_url().'assets/boot-strap3/js/bootstrap.min.js'?>" type="text/javascript"></script>
     <!-- Bootstrap core JavaScript===================== --> 
@@ -1162,7 +1103,6 @@ $("input:radio[name=commodity_s]").click(function() {
 	
     // $('#commodity').multipleSelect();
     function load_multiple(val){
-
     	// $('#commodity').removeAttr('disabled');
     	if(val==null){
     		$('#commodity').addClass('multiple_select');
@@ -1179,13 +1119,11 @@ $("input:radio[name=commodity_s]").click(function() {
     		$('#commodity').removeAttr('disabled');
     		// instantiate_multiple();
     		
-
     	}else{
     		$('#commodity').removeClass('multiple_select');
     		$('#commodity').removeAttr('multiple');
     		$('#single_options').show();
     		$('#multiple_options').hide();
-
     	}
     	 
     }

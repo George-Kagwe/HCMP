@@ -1,4 +1,5 @@
 <!-- top tiles -->
+          <div id="dashboard-top-tiles">
             <div class="row col-md-12">
                 <a id="menu_toggle"><i class="fa fa-bars"></i></a>
             </div>
@@ -29,3 +30,5 @@
             
           </div>
           <!-- /top tiles -->
+
+          </div>

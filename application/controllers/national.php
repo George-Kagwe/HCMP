@@ -2063,15 +2063,42 @@ public function new_consumption(){
 				}
 
 				public function reports() {
-
-		//$data['county'] = Counties::getAll();
-		//Added function to display oonly the counties that are currently using HCMP
-					$counties = Counties::get_counties_all_using_HCMP();
-					$data['county'] = $counties;
-
-					$data['commodities'] = Commodities::get_all();		
-					$data['sub_county'] = Districts::getAll();
-					$this -> load -> view('national/reports_home', $data);
+        $default = "tracer";//FYI
+		$commodity_count = Dashboard_model::get_commodity_count();
+		$commodities = Dashboard_model::get_division_commodities($division);
+		$division_details = Dashboard_model::get_division_details($division);
+		// echo "<pre>";print_r($tracer_commodities);exit;
+		if (isset($division) && $division>0) {
+			$page_title = $division_details[0]['division_name'];
+			if($division!=5){
+				$tracer = "NULL";
+			}
+		}else{
+			$tracer = 1;
+			$page_title = "Tracer Items";
+		}
+		$data['page_title'] = $page_title;
+		// echo "<pre>";print_r($commodities);exit;
+		$commodity_divisions = Dashboard_model::get_division_details();
+		$counties = $this->db->query("SELECT * FROM counties")->result_array();
+		$districts = $this->db->query("SELECT * FROM districts")->result_array();
+		$facility_count = Dashboard_model::get_online_offline_facility_count();
+		$counties_using_HCMP = Counties::get_counties_all_using_HCMP();
+		// echo "<pre>";print_r($counties_using);exit;
+		$data['tracer'] = $tracer;
+		$data['commodity_division'] = isset($division)? $division :"NULL";
+		$data['tracer_commodities'] = $commodities;
+		$data['facility_count'] = $facility_count;
+		$data['commodity_count'] = $commodity_count;
+		$data['content_view'] = 'dashboard/dashboard';
+		$data['county_data'] = $counties;
+		$data['county_count'] = count($counties_using_HCMP);
+		$data['district_data'] = $districts;
+		$data['commodity_divisions'] = $commodity_divisions;
+		$data['title'] = "National Dashboard";
+		$data['counties'] = $county_name;
+		$this->load->view('dashboard/dashboard_top_tiles',$data);
+		$this->load->view('national/reports_home1',$data);
 
 				}
 

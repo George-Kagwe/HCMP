@@ -1,3 +1,155 @@
+
+/*!
+ * Start Bootstrap - Simple Sidebar HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+/* Toggle Styles */
+
+
+#dashboard-top-tiles{
+  float: right;
+  margin-top: -6%;
+}
+footer{
+    margin-right: 25%;
+    margin-left:  25%;
+    margin-top: 2%;
+}
+img{
+  border-style: none;
+  vertical-align: top;
+  max-width: 100%;
+  height: auto;
+}
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+    padding-left: 250px;
+}
+
+#sidebar-wrapper {
+    margin-top: -12%;
+    background-color: #2196F3;
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 0;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    background: #2A3F54;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -250px;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #999999;
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}
+
+@media(min-width:768px) {
+    #wrapper {
+        padding-left: 250px;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 250px;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+}
+
+
+
+/*********** From Karsan *********/
+
 .nav-sm .container.body .col-md-3.left_col {
   width: 70px;
   padding: 0;
@@ -332,15 +484,7 @@ body .container.body .right_col {
 .top_nav .nav>li>a:focus, .top_nav .nav>li>a:hover, .top_nav .nav .open>a, .top_nav .nav .open>a:focus, .top_nav .nav .open>a:hover {
   background: #D9DEE4;
 }
-body {
-  color: #73879C;
-  background: #2A3F54;
-  /*#ECF0F1; #FCFCFC*/
-  font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-  font-size: 13px;
-  font-weight: 400;
-  line-height: 1.471;
-}
+
 .main_container .top_nav {
   display: block;
   margin-left: 230px;
@@ -4802,7 +4946,7 @@ ul.notifications {
 
 /*KARSAN CSS OVER TEMPLATE*/
 .coat_of_arms_sidebar{
-  height:100px;
+  height:200px;
 }
 .small_header_font{
   font-size:11px;
@@ -4822,9 +4966,7 @@ ul.notifications {
 .full-width{
   width:100%!important;
 }
-<<<<<<< HEAD
->>>>>>> 43e07470a11b9e45127d04af6f88d6602abb96e6
-=======
+
 .float-left{
   float: left!important;
 }
@@ -4835,5 +4977,6 @@ ul.notifications {
 .full-height{
   height:100%!important;
 }
->>>>>>> 391813c12972c3ffbba8bc459712246ae40f80e8
+
 /*END OF KARSAN CSS OVER TEMPLATE*/
+/*********** From Karsan *********/
