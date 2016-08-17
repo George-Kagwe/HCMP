@@ -241,7 +241,7 @@
 		</div>
 		<div class="col-md-2 pull-right">
 
-				<a href="<?php echo base_url('kenya') ?>">
+				<a href="<?php echo base_url('dashboard') ?>">
 
 				<!-- <a href="<?php // echo base_url(); ?>"> -->
 

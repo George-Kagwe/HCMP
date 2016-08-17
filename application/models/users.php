@@ -285,9 +285,7 @@ FROM
     districts d ON d.id = u.district
         LEFT JOIN
     facilities f ON u.facility = f.facility_code
-        LEFT JOIN
-
-    access_level a ON a.id = u.usertype_id  $limit
+        LEFT JOIN 
 
     access_level a ON a.id = u.usertype_id $type $county $district $limit
 

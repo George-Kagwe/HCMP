@@ -187,6 +187,11 @@ class Facilities extends Doctrine_Record {
 		$drugs = $query -> execute(array(), Doctrine::HYDRATE_ARRAY);
 		return $drugs;
 	}
+	public static function getFacilities_json_online($district){
+		$query = Doctrine_Query::create() -> select("*") -> from("facilities")->where("district='$district' AND using_hcmp='1'")->OrderBy("facility_name asc");
+		$drugs = $query -> execute(array(), Doctrine::HYDRATE_ARRAY);
+		return $drugs;
+	}
 	public static function getFacilities_for_email($district){
 		$query = Doctrine_Query::create() -> select("*") -> from("facilities")->where("district='$district' AND using_hcmp=1")->OrderBy("facility_name asc");
 		$drugs = $query -> execute();

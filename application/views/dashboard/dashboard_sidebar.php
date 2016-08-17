@@ -58,7 +58,7 @@
                   <li><a><i class="glyphicon glyphicon-user"></i> Login <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                     <li><a href="<?php echo base_url().'home'; ?>"> Essential Commodities </a></li>
-                    <li><a href="http://41.89.6.223/HCMP/user"> RTK</a></li>
+                    <li><a href="http://41.89.6.223/HCMP/user"> RTK/CD4</a></li>
                     <li><a href="http://41.89.6.209/sms_system"> SMS System</a></li>
                     <li><a href="http://41.89.6.209/MNCH/analytics/CHV2"> MNCH</a></li>
                     </ul>

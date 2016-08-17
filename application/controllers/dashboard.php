@@ -173,10 +173,16 @@ class Dashboard extends MY_Controller {
 		$and .= ($county_id > 0) ? " AND c.id='$county_id'" : null;
 		$and .= ((isset($offline)&& $offline == 2))?" AND f.using_hcmp=2":NULL;
 		$and .= ((isset($offline)&& $offline == 1))?" AND f.using_hcmp=1":NULL;
+		$and .= ((isset($offline)&& $offline == 1))?" AND f.using_hcmp=1":NULL;
+		$and .= ((isset($offline)&& $offline == 0))?" AND f.using_hcmp in (1,2)":NULL;
 		$last_sync_column = ((isset($offline)&& $offline == 2))?",ftp.date_added AS last_sync":NULL;
 		$join_data = ((isset($offline)&& $offline == 2))?",facilities f LEFT JOIN ftp_uploads ftp ON ftp.facility_code = f.facility_code":",facilities f";
 		$title_main = ((isset($offline)&& $offline == 1)) ? " Online" : 'Offline';
+		if($offline==0){
+			$title_main = "OFFLINE AND ONLINE";	
+		}
 		
+
 		$and = isset($and) ? $and : null;	
 		// echo $and;exit;	
 		if (isset($county_id)) :
@@ -222,8 +228,7 @@ class Dashboard extends MY_Controller {
 				$and
 			GROUP BY f.facility_name
 			ORDER BY c.county , d.district , f.facility_name
-			");
-	// echo "<pre>";print_r($facility_data);exit;
+			");	
 		$row_data = array();
 		if((isset($offline)&& $offline == 1)){
 			$column_data = array("County", "Sub-County", "Facility Name", "Facility Code", "Facility Level","Type", "Date of Activation");
@@ -252,6 +257,19 @@ class Dashboard extends MY_Controller {
 				$facility_data_item["date_of_activation"],
 				$last_sync
 				));
+			endforeach;
+		}else if((isset($offline)&& $offline == 0)){
+			$column_data = array("County", "Sub-County", "Facility Name", "Facility Code", "Facility Level","Type", "Date of Activation");
+			foreach ($facility_data as $facility_data_item) :
+			array_push($row_data, array(
+				$facility_data_item["county"], 
+				$facility_data_item["subcounty"], 
+				$facility_data_item["facility_name"], 
+				$facility_data_item["facility_code"], 
+				$facility_data_item["level"], 
+				$facility_data_item["type"],
+				$facility_data_item["date_of_activation"])
+			);
 			endforeach;
 		}
 		// echo "<pre>";print_r($row_data);exit;
@@ -406,10 +424,10 @@ class Dashboard extends MY_Controller {
 		elseif (isset($district_id)) :
 			$district_data = (isset($district_id) && ($district_id > 0)) ? districts::get_district_name($district_id) -> toArray() : null;
 		$district_name_ = (isset($district_data)) ? " :" . $district_data[0]['district'] . " Sub-County" : null;
-		$title .= isset($facility_code) && isset($district_id) ? "$district_name_ : $facility_name" : (isset($district_id) && !isset($facility_code) ? "$district_name_" : "$name County");
+		$title .= isset($facility_code) && isset($district_id) ? "$district_name_ : $facility_name" : (isset($district_id) && !isset($facility_code) ? "$district_name_" : " $name County");
 		elseif (isset($facility_code)) :
-			$facility_code_ = isset($facility_code) ? facilities::get_facility_name_($facility_code) : null;
-		$title .= $facility_code_['facility_name'];
+			$facility_code_ = isset($facility_code) ? facilities::get_facility_name2($facility_code) : null;
+			$title .= " ".$facility_code_['facility_name'];
 		else :
 			$title .= "";
 		endif;
@@ -1101,14 +1119,14 @@ class Dashboard extends MY_Controller {
 			$name = $county_name['county'];
 			$title .= " $name County";
 			//print_r($name);exit;
-			elseif (isset($district_id)) :
-				$district_data = (isset($district_id) && ($district_id > 0)) ? districts::get_district_name($district_id) -> toArray() : null;
+		elseif (isset($district_id)) :
+			$district_data = (isset($district_id) && ($district_id > 0)) ? districts::get_district_name($district_id) -> toArray() : null;
 			$district_name_ = (isset($district_data)) ? " :" . $district_data[0]['district'] . " Sub-County" : null;
-			$title .= isset($facility_code) && isset($district_id) ? "$district_name_ : $facility_name" : (isset($district_id) && !isset($facility_code) ? "$district_name_" : "$name County");
-			elseif (isset($facility_code)) :
-				$facility_code_ = isset($facility_code) ? facilities::get_facility_name_($facility_code) : null;
-			$title .= $facility_code_['facility_name'];
-			else :
+			$title .= isset($facility_code) && isset($district_id) ? "$district_name_ : $facility_name" : (isset($district_id) && !isset($facility_code) ? "$district_name_" : " $name County");
+		elseif (isset($facility_code)) :
+				$facility_code_ = isset($facility_code) ? facilities::get_facility_name2($facility_code) : null;
+				$title .=" ".$facility_code_['facility_name'];
+		else :
 				// echo "I work here";exit;
 			$title .= "";
 		endif;//county id isset
@@ -1134,7 +1152,7 @@ class Dashboard extends MY_Controller {
 				        AND d1.county = c.id
 				        AND f_i.`qty_issued` > 0
 				        AND YEAR(f_i.created_at) = $year
-				        $filter
+				        $and_data
 				        GROUP BY MONTH(f_i.created_at)
 				        ")->result_array();
 			// echo "<pre>";print_r($commodity_array);exit;
@@ -1154,7 +1172,7 @@ class Dashboard extends MY_Controller {
 		$title = trim($title);
 		$graph_type = 'spline';
 		$graph_data = array_merge($graph_data, array("graph_id" => 'dem_graph_consuption'));
-		$graph_data = array_merge($graph_data, array("graph_title" => $title." Consumption (Packs) for $year"));
+		$graph_data = array_merge($graph_data, array("graph_title" =>" ".$title." Consumption (Packs) for $year"));
 		$graph_data = array_merge($graph_data, array("graph_type" => $graph_type));
 		$graph_data = array_merge($graph_data, array("color" => "['#7CB5EC', '#434348']"));
 		$graph_data = array_merge($graph_data, array("graph_yaxis_title" => "Packs"));
@@ -1168,7 +1186,7 @@ class Dashboard extends MY_Controller {
 			// echo "Graph data";exit;
 		else :
 			// echo "Excel data";exit;
-			$excel_data = array('doc_creator' => "HCMP", 'doc_title' => "$title Consumption (Packs) $time", 'file_name' => $title . ' Consumption');
+			$excel_data = array('doc_creator' => "HCMP", 'doc_title' => " $title Consumption (Packs) $time", 'file_name' => $title . ' Consumption');
 			$row_data = array();			
 			$column_data = array("County", "Sub-County", "Facility Name", "Facility Code", "Item Name", "Consumption (Packs)");
 		for ($i=1; $i < $count_commodities; $i++) { 
@@ -1959,6 +1977,10 @@ class Dashboard extends MY_Controller {
 			$district_name = Districts::get_district_name_($district_id);
 			$graph_title = $page_title.' '.$district_name['district'].' Sub-County Stock Level';
 		}
+		if($facility_code>0){
+			$facility_name = Facilities::get_facility_name2($facility_code);			
+			$graph_title = $page_title.' '.$facility_name['facility_name'].' Stock Level';
+		}
 		
 		// echo $tracer_item;exit;
 		// echo is_null($district_id);
@@ -1996,8 +2018,8 @@ class Dashboard extends MY_Controller {
 			SELECT 
 			    commodities.id,
 			    commodities.commodity_name,
-			    SUM(facility_stocks.current_balance) AS unit_balance,
-			    SUM(facility_stocks.current_balance) / commodities.total_commodity_units AS pack_balance,
+			    CEIL(SUM(facility_stocks.current_balance)) AS unit_balance,
+			    CEIL(SUM(facility_stocks.current_balance)) / commodities.total_commodity_units AS pack_balance,
 			    commodities.total_commodity_units
 			FROM
 			    hcmp_rtk.facility_stocks
@@ -2011,6 +2033,7 @@ class Dashboard extends MY_Controller {
 			    commodities ON facility_stocks.commodity_id = commodities.id
 			WHERE
 			    commodities.status = 1
+			    and facility_stocks.expiry_date > NOW()
 			         $filter
 			GROUP BY commodities.id ORDER BY commodities.commodity_name ASC
 		")->result_array();

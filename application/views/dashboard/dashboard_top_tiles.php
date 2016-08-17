@@ -1,5 +1,13 @@
 <!-- top tiles -->
+<<<<<<< HEAD
           <div id="dashboard-top-tiles">
+=======
+<style>
+  .green{
+    color:#1ABB9C!important;
+  }
+</style>
+>>>>>>> 5f9986bf3ef8941f0529e4c9903c290a7b8a47d7
             <div class="row col-md-12">
                 <a id="menu_toggle"><i class="fa fa-bars"></i></a>
             </div>
@@ -12,7 +20,7 @@
             <div class="col-md-3 col-sm-3 col-xs-3 tile_stats_count">
               <span class="count_top"><i class="fa fa-hospital-o"></i> Total Facilities Covered </span>
               <div class="count green excel_" id="rolledout"><?php echo $facility_count[0]['total_facilities']; ?></div>
-              <span class="count_bottom">Facilities on <b>Both Online and Offline Versions</b></span>
+              <span class="count_bottom">Both <b>Online</b> and <b>Offline Versions</b></span>
               <span class="count_bottom">   </span>
             </div>
             <div class="col-md-3 col-sm-3 col-xs-3 tile_stats_count">
